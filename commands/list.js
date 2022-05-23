@@ -1,7 +1,7 @@
 
 import chalk from 'chalk';
 import { exec } from 'child_process';
-
+import * as fs from 'fs';
 
 export function list () {
     // const data = [{
@@ -100,6 +100,42 @@ export function markDone({tasks}) {
 
     }
 
+    //show the user a message
+    console.log(
+        chalk.green.bold('Tasks have been marked as done successfully')
+    )
+}
+
+export function createProject({toProject, fromProject}) {
+    console.log('project', toProject)
+    console.log('project2', fromProject)
+    var command = `git clone https://gitlab.com/test-ttlab/${fromProject}`
+    var child = exec(command, function(err, stdout, stderr){
+        // if(err != null){
+        //     return cb(new Error(err), null);
+        // }else if(typeof(stderr) != "string"){
+        //     return cb(new Error(stderr), null);
+        // }else{
+        //     return cb(null, stdout);
+        // }
+    });
+    console.log(child)
+    let rawdata = fs.readFileSync(`./${fromProject}/package.json`);
+    console.log('rawdata', rawdata);
+    let parsedData = JSON.parse(rawdata);
+    console.log('student', parsedData);
+    parsedData.name = toProject;
+    let data = JSON.stringify(parsedData, null, "\t");
+    fs.writeFileSync(`./${fromProject}/package.json`, data);
+    console.log('fs.existsSync()', fs.existsSync(`./${fromProject}`))
+    let oldFolderName = `./${fromProject}`;
+    let newFolderName = `./${toProject}`;
+    try {
+        fs.renameSync(oldFolderName, newFolderName);
+        console.log("Directory rename successful");
+        } catch (err) {
+        console.log(err);
+        }
     //show the user a message
     console.log(
         chalk.green.bold('Tasks have been marked as done successfully')

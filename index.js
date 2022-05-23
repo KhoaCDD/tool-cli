@@ -3,18 +3,18 @@
 import { program } from 'commander';
 import minimist from 'minimist'
 
-import { list, add, markDone } from './commands/list.js'
+import { list, add, markDone, createProject } from './commands/list.js'
 
 program
     .command('list')
     .description('List all the TODO tasks')
     .action(list)
 
-program
-    .command('create')
-    .description('Add a new TODO task')
-    .option('--from-project <tasks...>', 'The tasks to mark done. If not specified, all tasks will be marked done.')
-    .action(add)
+// program
+//     .command('create')
+//     .description('Add a new TODO task')
+//     .option('--from-project <tasks...>', 'The tasks to mark done. If not specified, all tasks will be marked done.')
+//     .action(add)
 
 program
     .command('mark-done')
@@ -25,4 +25,10 @@ program
         markDone(tasks)
     })
 
+program
+    .command('create')
+    .description('Init a project')
+    .option('--from-project <fromProject>')
+    .option('--to-project <toProject>')
+    .action(createProject)
 program.parse()
