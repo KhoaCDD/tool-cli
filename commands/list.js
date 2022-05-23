@@ -1,8 +1,9 @@
 
 import chalk from 'chalk';
-import { exec } from 'child_process';
+import * as exec from 'child_process';
+import * as util from 'util'
 import * as fs from 'fs';
-
+const execPromise = util.promisify(exec.exec);
 export function list () {
     // const data = [{
     //     text, //string, the text of the todo task
@@ -106,28 +107,14 @@ export function markDone({tasks}) {
     )
 }
 
-export function createProject({toProject, fromProject}) {
-    console.log('project', toProject)
-    console.log('project2', fromProject)
+export async function createProject({toProject, fromProject}) {
     var command = `git clone https://gitlab.com/test-ttlab/${fromProject}`
-    var child = exec(command, function(err, stdout, stderr){
-        // if(err != null){
-        //     return cb(new Error(err), null);
-        // }else if(typeof(stderr) != "string"){
-        //     return cb(new Error(stderr), null);
-        // }else{
-        //     return cb(null, stdout);
-        // }
-    });
-    console.log(child)
+    await execPromise(command)
     let rawdata = fs.readFileSync(`./${fromProject}/package.json`);
-    console.log('rawdata', rawdata);
     let parsedData = JSON.parse(rawdata);
-    console.log('student', parsedData);
     parsedData.name = toProject;
     let data = JSON.stringify(parsedData, null, "\t");
     fs.writeFileSync(`./${fromProject}/package.json`, data);
-    console.log('fs.existsSync()', fs.existsSync(`./${fromProject}`))
     let oldFolderName = `./${fromProject}`;
     let newFolderName = `./${toProject}`;
     try {

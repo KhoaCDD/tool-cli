@@ -19,6 +19,7 @@
     "conf": "^10.1.2",
     "fs": "^0.0.1-security",
     "minimist": "^1.2.6",
+    "util": "^0.12.4",
     "validate-npm-package-name": "^4.0.0"
   }
 }
