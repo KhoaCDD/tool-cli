@@ -11,8 +11,9 @@ program
     .action(list)
 
 program
-    .command('add <task>')
+    .command('create')
     .description('Add a new TODO task')
+    .option('--from-project <tasks...>', 'The tasks to mark done. If not specified, all tasks will be marked done.')
     .action(add)
 
 program

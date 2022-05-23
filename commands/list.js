@@ -10,7 +10,7 @@ export function list () {
     // }]
     const todoList = [{
         index: 1,
-        text: "aaaaa"
+        text: "aaaa22"
     }]
 
     if (todoList && todoList.length) {
@@ -36,7 +36,7 @@ export function list () {
     }
 }
 
-export function add (task) {
+export function add (projectName) {
     //get the current todo-list
     const todoList = [{
         index: 1,
