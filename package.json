@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "todos": "./index.js"
+    "ttlab-cli": "./index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,14 @@
     "chalk": "^5.0.1",
     "commander": "^9.2.0",
     "conf": "^10.1.2",
+    "fs": "^0.0.1-security",
     "minimist": "^1.2.6",
+    "util": "^0.12.4",
     "validate-npm-package-name": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   }
 }
