@@ -64,3 +64,16 @@ function updatePackageJsonFile(newProjectName) {
   const data = JSON.stringify(parsedData, null, '\t');
   fs.writeFileSync(`./${newProjectName}/package.json`, data);
 }
+
+async function runCommandGitCloneTest(templateName, newProjectName) {
+  try {
+    const command = `${CLONE_COMMAND} ${GITLAB_GROUP_URL}/${templateName}.git ${newProjectName}`;
+    await execPromise(command)
+    return true;
+  } catch ({stderr, err}){
+    console.log(
+        chalk.red.bold(err)
+      );
+    return false
+  }
+}
